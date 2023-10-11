@@ -6,28 +6,28 @@ import './styles/app.css';
 import PropTypes from 'prop-types';
 
 function Navbar(props) {
-    const { head, year } = props;
-    return (
-        <>
-            <header id="header">
-                <Link className="Link" to="/">
-                    <IoChevronBack />
-                    {year}
-                </Link>
-                {head}
-                <div className="navbar">
-                    <IoMicSharp />
-                    <IoSettingsOutline />
-                </div>
-            </header>
-        </>
-    );
+  const { head, year } = props;
+  return (
+    <>
+      <header id="header">
+        <Link className="Link" to="/">
+          <IoChevronBack />
+          {year}
+        </Link>
+        {head}
+        <div className="navbar">
+          <IoMicSharp />
+          <IoSettingsOutline />
+        </div>
+      </header>
+    </>
+  );
 }
 Navbar.propTypes = {
-    head: PropTypes.string.isRequired,
-    year: PropTypes.number,
+  head: PropTypes.string.isRequired,
+  year: PropTypes.number,
 };
 Navbar.defaultProps = {
-    year: null,
+  year: null,
 };
 export default Navbar;
