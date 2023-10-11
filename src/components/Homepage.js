@@ -5,7 +5,7 @@ import { IoSearch } from 'react-icons/io5';
 import { countriesFetch, continents } from '../redux/countrySlice';
 import worldmap from '../assets/worldmap.svg';
 import Navbar from './Nav';
-import CountrySection from './countrysection';
+import CountrySection from './CountrySection';
 
 const Home = () => {
   const dispatch = useDispatch();

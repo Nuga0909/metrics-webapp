@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Navbar from './Nav';
 import { countryFetch } from '../redux/countrySlice';
-import '../styles/app.css';
+import './styles/app.css';
 
 const CountryDetails = () => {
   const dispatch = useDispatch();
