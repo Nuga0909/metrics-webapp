@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IoChevronBack, IoMicSharp, IoSettingsOutline } from 'react-icons/io5';
-import '../styles/app.css';
+import './styles/app.css';
 
 import PropTypes from 'prop-types';
 
