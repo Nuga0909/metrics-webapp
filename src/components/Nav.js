@@ -9,7 +9,7 @@ function Navbar(props) {
   const { head, year } = props;
   return (
     <>
-      <header id="header">
+      <header className="header">
         <Link className="Link" to="/">
           <IoChevronBack />
           {year}
