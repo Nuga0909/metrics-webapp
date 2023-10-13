@@ -42,7 +42,7 @@ Metrics Webapp  is world-population info web application.It is a single-page web
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
--[Live Version](https://world-kx2q.onrender.com/)
+-[Live Version](https://web-metrics-webapp.onrender.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
