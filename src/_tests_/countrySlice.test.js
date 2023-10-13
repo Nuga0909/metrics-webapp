@@ -1,70 +1,49 @@
-import { createStore, applyMiddleware } from '@reduxjs/toolkit';
+import axios from 'axios';
+import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import mockAxios from 'jest-mock-axios';
-import countrySlice, {
-  countriesFetch,
-  countryFetch,
-} from './path-to-your-code-file';
+import { countriesFetch } from '../redux/countrySlice';
 
-describe('async thunk actions', () => {
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+describe('async actions', () => {
   let store;
 
   beforeEach(() => {
-    // Set up a mock store for the tests
-    store = createStore(countrySlice, applyMiddleware(thunk));
-  });
-
-  afterEach(() => {
-    // Cleaning up: remove all axios mocks
-    mockAxios.reset();
+    store = mockStore({
+      isLoading: false,
+      countries: [],
+      continent: 'Asia',
+      country: [],
+    });
+    axios.get.mockClear();
   });
 
   it('creates countriesFetch.fulfilled when fetching countries succeeds', async () => {
-    // Dispatch the async action
-    store.dispatch(countriesFetch());
-
-    // Simulate a successful response
-    const responseMock = [{ name: 'Country1' }, { name: 'Country2' }];
-    mockAxios.mockResponse({ data: responseMock });
-
-    const expectedActions = [
-      { type: countriesFetch.pending.type },
-      { type: countriesFetch.fulfilled.type, payload: responseMock },
-    ];
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('creates countriesFetch.rejected when fetching countries fails', async () => {
-    store.dispatch(countriesFetch());
-
-    // Simulate an error response
-    mockAxios.mockError(new Error('An error occurred!'));
-
-    const expectedActions = [
-      { type: countriesFetch.pending.type },
+    const mockData = [
       {
-        type: countriesFetch.rejected.type,
-        error: new Error('An error occurred!'),
+        name: 'Country1', // The structure is corrected here
+        flags: 'Flag1',
+        population: 123456,
+        region: 'Region1',
       },
     ];
+    axios.get.mockResolvedValueOnce({ data: mockData });
 
-    expect(store.getActions()).toEqual(expectedActions);
+    await store.dispatch(countriesFetch());
+
+    const actions = store.getActions();
+    expect(actions[0].type).toEqual(countriesFetch.pending.type);
+    expect(actions[1].type).toEqual(countriesFetch.fulfilled.type);
+    expect(actions[1].payload).toEqual([
+      {
+        countryName: 'Country1',
+        flag: 'Flag1',
+        population: 123456,
+        region: 'Region1',
+      },
+    ]);
   });
 
-  it('creates countryFetch.fulfilled when fetching a single country succeeds', async () => {
-    store.dispatch(countryFetch('countryName'));
-
-    const responseMock = [{ name: 'Country1' }];
-    mockAxios.mockResponse({ data: responseMock });
-
-    const expectedActions = [
-      { type: countryFetch.pending.type },
-      { type: countryFetch.fulfilled.type, payload: responseMock },
-    ];
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  // Similarly, you can test for countryFetch.rejected
+  // You can add more tests for other actions and scenarios
 });
