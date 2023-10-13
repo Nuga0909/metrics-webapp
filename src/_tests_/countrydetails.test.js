@@ -1,13 +1,13 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import CountryDetails from "../components/CountryDetails";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import CountryDetails from '../components/CountryDetails';
 
-jest.mock("react-redux");
-jest.mock("react-router-dom");
+jest.mock('react-redux');
+jest.mock('react-router-dom');
 
-describe("CountryDetails", () => {
+describe('CountryDetails', () => {
   const mockDispatch = jest.fn();
 
   beforeEach(() => {
@@ -16,38 +16,38 @@ describe("CountryDetails", () => {
       isLoading: false,
       country: [],
     });
-    useParams.mockReturnValue({ countryId: "1" });
+    useParams.mockReturnValue({ countryId: '1' });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it("renders without crashing", () => {
+  it('renders without crashing', () => {
     render(<CountryDetails />);
   });
 
-  it("displays loading when data is being fetched", () => {
+  it('displays loading when data is being fetched', () => {
     useSelector.mockReturnValue({ isLoading: true, country: [] });
     const { getByText } = render(<CountryDetails />);
     expect(getByText(/loading/i)).toBeInTheDocument();
   });
 
-  it("displays country details when data is available", () => {
+  it('displays country details when data is available', () => {
     const mockData = {
       isLoading: false,
       country: [
         {
-          flag: { svg: "test.svg" },
-          countryName: "TestCountry",
-          currencies: [{ name: "TestCurrency" }],
-          capital: "TestCapital",
-          area: "TestArea",
+          flag: { svg: 'test.svg' },
+          countryName: 'TestCountry',
+          currencies: [{ name: 'TestCurrency' }],
+          capital: 'TestCapital',
+          area: 'TestArea',
           population: 1000,
-          borders: ["TestBorder"],
-          languages: [{ name: "TestLanguage" }],
-          nativeName: "TestNativeName",
-          timezones: ["TestTimezone"],
+          borders: ['TestBorder'],
+          languages: [{ name: 'TestLanguage' }],
+          nativeName: 'TestNativeName',
+          timezones: ['TestTimezone'],
         },
       ],
     };
@@ -55,8 +55,8 @@ describe("CountryDetails", () => {
     useSelector.mockReturnValue(mockData);
     const { getByText } = render(<CountryDetails />);
 
-    expect(getByText("TestCountry")).toBeInTheDocument();
-    expect(getByText("TestCurrency")).toBeInTheDocument();
+    expect(getByText('TestCountry')).toBeInTheDocument();
+    expect(getByText('TestCurrency')).toBeInTheDocument();
     // ... Continue checks for other fields
   });
 
