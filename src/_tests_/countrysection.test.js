@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
-import CountrySection from '../components/countrysection';
+import CountrySection from '../components/CountrySection';
 
 configure({ adapter: new Adapter() });
 
